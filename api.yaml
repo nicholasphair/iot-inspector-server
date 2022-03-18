@@ -44,6 +44,33 @@ paths:
         '400':
           description: Bad request
 
+  /submit_fingerprint/{user_key}:
+    post:
+      operationId: submitFingerprint
+      summary: Upload device fingerprints to the backend.
+      parameters:
+        - name: user_key
+          in: path
+          required: true
+          description: the current user's key
+          schema:
+            type: string
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fingerprint'
+      responses:
+        '200':
+          description: |-
+            200 response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+
   /generate_user_key:
     get:
       operationId: generateUserKey
@@ -145,3 +172,12 @@ components:
           type: string
         client_ts:
           type: string
+    fingerprint:
+      type: object
+      properties:
+        name:
+          type: string
+        fingerprint:
+          type: array
+          items:
+            type: number

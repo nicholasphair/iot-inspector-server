@@ -1,6 +1,7 @@
 import connexion
 import six
 
+from openapi_server.models.fingerprint import Fingerprint    # noqa: E501
 from openapi_server.models.upload import Upload    # noqa: E501
 from openapi_server import util
 
@@ -48,6 +49,24 @@ def submit_data(user_key, upload=None):    # noqa: E501
     # inspected_devices = []
     resp = {'status': 'success', 'inspected_devices': []}
     return resp
+
+
+def submit_fingerprint(user_key, fingerprint=None):    # noqa: E501
+    """Upload device fingerprints to the backend.
+
+     # noqa: E501
+
+    :param user_key: the current user&#39;s key
+    :type user_key: str
+    :param fingerprint: 
+    :type fingerprint: dict | bytes
+
+    :rtype: str
+    """
+    if connexion.request.is_json:
+        fingerprint = Fingerprint.from_dict(connexion.request.get_json())    # noqa: E501
+    print(fingerprint)
+    return 'do some magic!'
 
 
 def submit_utc_offset(user_key, offset_seconds):    # noqa: E501

@@ -58,6 +58,34 @@ paths:
           description: Bad request
       summary: Upload data to the backend.
       x-openapi-router-controller: openapi_server.controllers.default_controller
+  /submit_fingerprint/{user_key}:
+    post:
+      operationId: submit_fingerprint
+      parameters:
+      - description: the current user's key
+        explode: false
+        in: path
+        name: user_key
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fingerprint'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 200 response
+        "400":
+          description: Bad request
+      summary: Upload device fingerprints to the backend.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
   /submit_utc_offset/{user_key}/{offset_seconds}:
     get:
       operationId: submit_utc_offset
@@ -166,4 +194,16 @@ components:
           title: client_ts
           type: string
       title: upload
+      type: object
+    fingerprint:
+      properties:
+        name:
+          title: name
+          type: string
+        fingerprint:
+          items:
+            type: number
+          title: fingerprint
+          type: array
+      title: fingerprint
       type: object
