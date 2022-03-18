@@ -4,6 +4,19 @@ info:
   title: IOT-Inspector-Server
   version: 1.0.0
 paths:
+  /:
+    get:
+      operationId: home
+      summary: root debug page
+      responses:
+        '200':
+          description: |-
+            200 response
+          content:
+            text/plain:
+              schema:
+                type: string
+
   /submit_data/{user_key}:
     post:
       operationId: submitData
@@ -16,7 +29,7 @@ paths:
           schema:
             type: string
       requestBody:
-        content: HOOK UP A DEBUGGER AND SEE WAT IT SENDS
+        content: 
           application/json:
             schema:
               $ref: '#/components/schemas/upload'
@@ -41,8 +54,8 @@ paths:
           content:
             text/html:
               examples:
-                text/html:
-                  '<html><head></head><body>123abc456def7890----------------</body></html>'
+                text/html: 
+                  value: '<html><head></head><body>123abc456def7890----------------</body></html>'
 
   /submit_utc_offset/{user_key}/{offset_seconds}:
     get:
@@ -67,10 +80,10 @@ paths:
           content:
             text/html:
               examples:
-                success:
-                  'SUCCESS'
-                failute:
-                  'ERROR: Invalid offset_seconds.'
+                success: 
+                  value: 'SUCCESS'
+                failure: 
+                  value: 'ERROR: Invalid offset_seconds.'
 
 components:
   schemas:

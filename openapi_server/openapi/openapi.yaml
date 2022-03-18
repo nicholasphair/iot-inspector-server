@@ -1,0 +1,137 @@
+openapi: 3.0.1
+info:
+  title: IOT-Inspector-Server
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /:
+    get:
+      operationId: home
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 200 response
+      summary: root debug page
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /generate_user_key:
+    get:
+      operationId: generate_user_key
+      responses:
+        "200":
+          content:
+            text/html:
+              examples:
+                text/html:
+                  value: <html><head></head><body>123abc456def7890----------------</body></html>
+          description: The generated key.
+      summary: Generate a new user key.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /submit_data/{user_key}:
+    post:
+      operationId: submit_data
+      parameters:
+      - description: the current user's key
+        explode: false
+        in: path
+        name: user_key
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/upload'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 200 response
+        "400":
+          description: Bad request
+      summary: Upload data to the backend.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /submit_utc_offset/{user_key}/{offset_seconds}:
+    get:
+      operationId: submit_utc_offset
+      parameters:
+      - description: the current user's key
+        explode: false
+        in: path
+        name: user_key
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The user's utc offset in seconds.
+        explode: false
+        in: path
+        name: offset_seconds
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/html:
+              examples:
+                success:
+                  value: SUCCESS
+                failure:
+                  value: 'ERROR: Invalid offset_seconds.'
+          description: All responses are 200
+      summary: Send client's timezone to the server.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+components:
+  schemas:
+    upload:
+      properties:
+        client_status_text:
+          title: client_status_text
+          type: string
+        dns_dict:
+          title: dns_dict
+          type: string
+        syn_scan_dict:
+          title: syn_scan_dict
+          type: string
+        flow_dict:
+          title: flow_dict
+          type: string
+        device_dict:
+          title: device_dict
+          type: string
+        ua_dict:
+          title: ua_dict
+          type: string
+        dhcp_dict:
+          title: dhcp_dict
+          type: string
+        resolver_dict:
+          title: resolver_dict
+          type: string
+        client_version:
+          title: client_version
+          type: string
+        tls_dict_list:
+          title: tls_dict_list
+          type: string
+        netdisco_dict:
+          title: netdisco_dict
+          type: string
+        duration:
+          title: duration
+          type: string
+        client_ts:
+          title: client_ts
+          type: string
+      title: upload
+      type: object
