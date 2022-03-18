@@ -46,7 +46,7 @@ def submit_data(user_key, upload=None):    # noqa: E501
     # ui_last_active_ts = int
     # status = 'status'
     # inspected_devices = []
-    resp = {'status': 'success', 'ui_last_active_ts': 0, 'inspected_devices': []}
+    resp = {'status': 'success', 'inspected_devices': []}
     return resp
 
 
