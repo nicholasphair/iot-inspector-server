@@ -17,14 +17,14 @@ def generate_user_key():    # noqa: E501
 
 
 def home():    # noqa: E501
-    """root debug page
+    """displays consent page
 
      # noqa: E501
 
 
     :rtype: str
     """
-    return f'iot-inspector debug backend'
+    return 'do some magic!'
 
 
 def submit_data(user_key, upload=None):    # noqa: E501
@@ -41,7 +41,13 @@ def submit_data(user_key, upload=None):    # noqa: E501
     """
     if connexion.request.is_json:
         upload = Upload.from_dict(connexion.request.get_json())    # noqa: E501
-    return f'received {upload}'
+    print(upload)
+    # client_action = {start_fast_arp_discovery, quit} U {}
+    # ui_last_active_ts = int
+    # status = 'status'
+    # inspected_devices = []
+    resp = {'status': 'success', 'ui_last_active_ts': 0, 'inspected_devices': []}
+    return resp
 
 
 def submit_utc_offset(user_key, offset_seconds):    # noqa: E501
@@ -56,4 +62,22 @@ def submit_utc_offset(user_key, offset_seconds):    # noqa: E501
 
     :rtype: None
     """
-    return f'received {offset_seconds}'
+    try:
+        int(offset_seconds)
+        return 'SUCCESS'
+    except ValueError:
+        pass
+    return 'ERROR: Invalid offset_seconds.'
+
+
+def user_user_key(user_key):    # noqa: E501
+    """na
+
+     # noqa: E501
+
+    :param user_key: the current user&#39;s key
+    :type user_key: str
+
+    :rtype: None
+    """
+    return 'do some magic!'

@@ -7,7 +7,7 @@ paths:
   /:
     get:
       operationId: home
-      summary: root debug page
+      summary: displays consent page
       responses:
         '200':
           description: |-
@@ -84,6 +84,35 @@ paths:
                   value: 'SUCCESS'
                 failure: 
                   value: 'ERROR: Invalid offset_seconds.'
+
+  # NB (nphair): Not sure what this end point is for. 
+  # It redirects to the dashboard.
+  /user/{user_key}:
+    get:
+      operationId: userUserKey  
+      summary: na
+      parameters:
+        - name: user_key
+          in: path
+          required: true
+          description: the current user's key
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirects to dashboard
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: user_key=123abc456def7890; Path=/
+            # https://github.com/OAI/OpenAPI-Specification/issues/1237#issuecomment-423955715
+            "\0Set-Cookie":
+              description: Session cookie
+              schema:
+                type: string
+                example: persistent_mode=yes; Path=
 
 components:
   schemas:

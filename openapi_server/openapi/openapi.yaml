@@ -15,7 +15,7 @@ paths:
               schema:
                 type: string
           description: 200 response
-      summary: root debug page
+      summary: displays consent page
       x-openapi-router-controller: openapi_server.controllers.default_controller
   /generate_user_key:
     get:
@@ -89,6 +89,38 @@ paths:
                   value: 'ERROR: Invalid offset_seconds.'
           description: All responses are 200
       summary: Send client's timezone to the server.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /user/{user_key}:
+    get:
+      operationId: user_user_key
+      parameters:
+      - description: the current user's key
+        explode: false
+        in: path
+        name: user_key
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "302":
+          description: Redirects to dashboard
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              explode: false
+              schema:
+                example: user_key=123abc456def7890; Path=/
+                type: string
+              style: simple
+            "\0Set-Cookie":
+              description: Session cookie
+              explode: false
+              schema:
+                example: persistent_mode=yes; Path=
+                type: string
+              style: simple
+      summary: na
       x-openapi-router-controller: openapi_server.controllers.default_controller
 components:
   schemas:
