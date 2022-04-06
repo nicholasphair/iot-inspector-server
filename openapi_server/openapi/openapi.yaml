@@ -30,6 +30,18 @@ paths:
           description: The generated key.
       summary: Generate a new user key.
       x-openapi-router-controller: openapi_server.controllers.default_controller
+  /heartbeat:
+    get:
+      operationId: heart_beat
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Acknowledgement.
+      summary: send a heartbeat to the server to let it know we are connected.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
   /submit_data/{user_key}:
     post:
       operationId: submit_data

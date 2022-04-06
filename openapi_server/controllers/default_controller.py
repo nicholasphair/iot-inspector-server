@@ -17,6 +17,17 @@ def generate_user_key():    # noqa: E501
     return 'do some magic!'
 
 
+def heart_beat():    # noqa: E501
+    """send a heartbeat to the server to let it know we are connected.
+
+     # noqa: E501
+
+
+    :rtype: str
+    """
+    return 'do some magic!'
+
+
 def home():    # noqa: E501
     """displays consent page
 

@@ -84,6 +84,18 @@ paths:
                 text/html: 
                   value: '<html><head></head><body>123abc456def7890----------------</body></html>'
 
+  /heartbeat:
+    get:
+      operationId: heartBeat
+      summary: send a heartbeat to the server to let it know we are connected.
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            text/plain:
+              schema:
+                type: string
+
   /submit_utc_offset/{user_key}/{offset_seconds}:
     get:
       operationId: submitUTCOffset
