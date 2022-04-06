@@ -13,6 +13,7 @@ openapi_server/encoder.py
 openapi_server/models/__init__.py
 openapi_server/models/base_model_.py
 openapi_server/models/fingerprint.py
+openapi_server/models/partner.py
 openapi_server/models/upload.py
 openapi_server/openapi/openapi.yaml
 openapi_server/test/__init__.py

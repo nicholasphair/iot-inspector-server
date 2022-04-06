@@ -96,6 +96,18 @@ paths:
               schema:
                 type: string
 
+  /partner:
+    get:
+      operationId: partner
+      summary: Ask the server for a partner to compute with.
+      responses:
+        '200':
+          description: Acknowledgement.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/partner'
+
   /submit_utc_offset/{user_key}/{offset_seconds}:
     get:
       operationId: submitUTCOffset
@@ -193,3 +205,10 @@ components:
           type: array
           items:
             type: number
+    partner:
+      type: object
+      properties:
+        success:
+          type: boolean
+        address:
+          type: string
