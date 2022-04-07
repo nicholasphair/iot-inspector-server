@@ -1,10 +1,18 @@
 import connexion
 import six
 
+from flask import request
+
 from openapi_server.models.fingerprint import Fingerprint    # noqa: E501
 from openapi_server.models.partner import Partner    # noqa: E501
 from openapi_server.models.upload import Upload    # noqa: E501
 from openapi_server import util
+
+from collections import defaultdict
+
+PEER_TIMEOUT = 3
+
+peers = defaultdict(lambda: (False, PEER_TIMEOUT))
 
 
 def generate_user_key():    # noqa: E501
@@ -26,7 +34,9 @@ def heart_beat():    # noqa: E501
 
     :rtype: str
     """
-    return 'do some magic!'
+    ip = request.remote_addr
+    peers[ip] = peers.default_factory()
+    return 'OK'
 
 
 def home():    # noqa: E501
