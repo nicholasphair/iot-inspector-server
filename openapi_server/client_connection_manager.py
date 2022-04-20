@@ -20,16 +20,25 @@ class ClientConnectionManager(Timer):
         for k in remove:
             del self._peers[k]
 
+    def _has_partner(self, meta):
+        return meta[0]
+
+    def next_available(self):
+        with self._mutex:
+            for peer, meta in self._peers.items():
+                if not self._has_partner(meta):
+                    meta[0] = True
+                    return peer
+        return ''
+
     def refresh(self, ip):
-        self._mutex.acquire()
-        self._peers[ip] = self._peers.default_factory()
-        self._mutex.release()
+        with self._mutex:
+            self._peers[ip][1] = ClientConnectionManager.TIMEOUT
 
     def run(self):
         while not self.finished.wait(self.interval):
-            self._mutex.acquire()
-            self.function(*self.args, **self.kwargs)
-            self._mutex.release()
+            with self._mutex:
+                self.function(*self.args, **self.kwargs)
 
     def __init__(self, interval=60):
         super().__init__(interval, self.decrement)

@@ -57,7 +57,8 @@ def partner():    # noqa: E501
 
     :rtype: Partner
     """
-    return 'do some magic!'
+    na = current_app.config['connection_manager'].next_available()
+    return Partner(bool(na), na)
 
 
 def submit_data(user_key, upload=None):    # noqa: E501
