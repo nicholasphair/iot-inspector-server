@@ -1,7 +1,7 @@
 import connexion
 import six
 
-from flask import request
+from flask import request, current_app
 
 from openapi_server.models.fingerprint import Fingerprint    # noqa: E501
 from openapi_server.models.partner import Partner    # noqa: E501
@@ -11,8 +11,6 @@ from openapi_server import util
 from collections import defaultdict
 
 PEER_TIMEOUT = 3
-
-peers = defaultdict(lambda: (False, PEER_TIMEOUT))
 
 
 def generate_user_key():    # noqa: E501
@@ -35,7 +33,8 @@ def heart_beat():    # noqa: E501
     :rtype: str
     """
     ip = request.remote_addr
-    peers[ip] = peers.default_factory()
+    print(ip)
+    current_app.config['connection_manager'].refresh(ip)
     return 'OK'
 
 
