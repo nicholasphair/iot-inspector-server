@@ -1,7 +1,7 @@
 import connexion
 import six
 
-from flask import request, current_app
+from flask import request, current_app, jsonify
 from openapi_server.models.client import Client    # noqa: E501
 from openapi_server.models.fingerprint import Fingerprint    # noqa: E501
 from openapi_server.models.partner import Partner    # noqa: E501
@@ -21,7 +21,9 @@ def clients():    # noqa: E501
 
     :rtype: List[Client]
     """
-    return 'do some magic!'
+    clients = current_app.config['connection_manager'].clients()
+    clients = [Client(k, v[0], v[1]) for k, v in clients]
+    return jsonify(clients)
 
 
 def generate_user_key():    # noqa: E501
@@ -80,7 +82,9 @@ def separate():    # noqa: E501
 
     :rtype: Partner
     """
-    return 'do some magic!'
+    ip = request.remote_addr
+    current_app.config['connection_manager'].separate(ip)
+    return 'OK'
 
 
 def submit_data(user_key, upload=None):    # noqa: E501

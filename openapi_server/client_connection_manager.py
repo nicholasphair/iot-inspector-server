@@ -20,6 +20,10 @@ class ClientConnectionManager(Timer):
         for k in remove:
             del self._peers[k]
 
+    def clients(self):
+        with self._mutex:
+            return self._peers.items()
+
     def _has_partner(self, meta):
         return meta[0]
 
@@ -30,6 +34,10 @@ class ClientConnectionManager(Timer):
                     meta[0] = True
                     return peer
         return ''
+
+    def separate(self, ip):
+        with self._mutex:
+            self._peers[ip][0] = False
 
     def refresh(self, ip):
         with self._mutex:

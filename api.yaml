@@ -131,10 +131,10 @@ paths:
       responses:
         '200':
           description: Acknowledgement.
-          content: 
-            application/json:
+          content:
+            text/plain:
               schema:
-                $ref: '#/components/schemas/partner'
+                type: string
 
   /submit_utc_offset/{user_key}/{offset_seconds}:
     get:
