@@ -17,6 +17,20 @@ paths:
           description: 200 response
       summary: displays consent page
       x-openapi-router-controller: openapi_server.controllers.default_controller
+  /clients:
+    get:
+      operationId: clients
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/client'
+                type: array
+          description: Acknowledgement.
+      summary: List all connected clients and if they are free for computation.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
   /generate_user_key:
     get:
       operationId: generate_user_key
@@ -53,6 +67,19 @@ paths:
                 $ref: '#/components/schemas/partner'
           description: Acknowledgement.
       summary: Ask the server for a partner to compute with.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /separate:
+    get:
+      operationId: separate
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/partner'
+          description: Acknowledgement.
+      summary: |
+        Tell the server you have disconnected from your partner. A client should send this after a secure computation is complete.
       x-openapi-router-controller: openapi_server.controllers.default_controller
   /submit_data/{user_key}:
     post:
@@ -243,4 +270,21 @@ components:
           title: address
           type: string
       title: partner
+      type: object
+    client:
+      example:
+        address: address
+        haspartner: true
+        timeout: 0
+      properties:
+        address:
+          title: address
+          type: string
+        haspartner:
+          title: haspartner
+          type: boolean
+        timeout:
+          title: timeout
+          type: integer
+      title: client
       type: object

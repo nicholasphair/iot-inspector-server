@@ -96,10 +96,38 @@ paths:
               schema:
                 type: string
 
+  /clients:
+    get:
+      operationId: clients
+      summary: List all connected clients and if they are free for computation.
+      responses:
+        '200':
+          description: Acknowledgement.
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/client'
+
   /partner:
     get:
       operationId: partner
       summary: Ask the server for a partner to compute with.
+      responses:
+        '200':
+          description: Acknowledgement.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/partner'
+
+  /separate:
+    get:
+      operationId: separate
+      summary: >
+        Tell the server you have disconnected from your partner. A client
+        should send this after a secure computation is complete.
       responses:
         '200':
           description: Acknowledgement.
@@ -212,3 +240,12 @@ components:
           type: boolean
         address:
           type: string
+    client:
+      type: object
+      properties:
+        address:
+          type: string
+        haspartner:
+          type: boolean
+        timeout:
+          type: integer

@@ -2,7 +2,7 @@ import connexion
 import six
 
 from flask import request, current_app
-
+from openapi_server.models.client import Client    # noqa: E501
 from openapi_server.models.fingerprint import Fingerprint    # noqa: E501
 from openapi_server.models.partner import Partner    # noqa: E501
 from openapi_server.models.upload import Upload    # noqa: E501
@@ -11,6 +11,17 @@ from openapi_server import util
 from collections import defaultdict
 
 PEER_TIMEOUT = 3
+
+
+def clients():    # noqa: E501
+    """List all connected clients and if they are free for computation.
+
+     # noqa: E501
+
+
+    :rtype: List[Client]
+    """
+    return 'do some magic!'
 
 
 def generate_user_key():    # noqa: E501
@@ -59,6 +70,17 @@ def partner():    # noqa: E501
     """
     na = current_app.config['connection_manager'].next_available()
     return Partner(bool(na), na)
+
+
+def separate():    # noqa: E501
+    """Tell the server you have disconnected from your partner. A client should send this after a secure computation is complete. 
+
+     # noqa: E501
+
+
+    :rtype: Partner
+    """
+    return 'do some magic!'
 
 
 def submit_data(user_key, upload=None):    # noqa: E501
