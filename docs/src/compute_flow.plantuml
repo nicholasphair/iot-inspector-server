@@ -1,0 +1,25 @@
+@startuml
+loop every minute
+Client -> Server: **\hearbeat** \n Register with the server.
+Server --> Client: Ack.
+end
+
+loop every minute
+Client2 -> Server: **\heartbeat** \n Register \n with the server
+Server --> Client2: Ack.
+end
+
+Client -> Server: **\partner** \n Request a computation partner.
+Client <-- Server: Address of Client2.
+
+group crypten
+Client <-> Client2: Secure MPC.
+end
+
+Client -> Server: **\separate** \n Notify server computation complete.
+Server --> Client: Ack.
+
+Client2 -> Server: **\separate** \n Notify server computaion complete.
+Server --> Client2: Ack.
+@enduml
+

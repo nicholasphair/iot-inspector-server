@@ -1,0 +1,39 @@
+@startuml
+
+title IOT-Inspector-Server Schemas Diagram
+
+entity Client {
+    address: String
+    haspartner: Boolean
+    timeout: Integer
+}
+
+entity Fingerprint {
+    name: String
+    fingerprint: List<BigDecimal>
+}
+
+entity Partner {
+    success: Boolean
+    address: String
+}
+
+entity Upload {
+    client_status_text: String
+    dns_dict: String
+    syn_scan_dict: String
+    flow_dict: String
+    device_dict: String
+    ua_dict: String
+    dhcp_dict: String
+    resolver_dict: String
+    client_version: String
+    tls_dict_list: String
+    netdisco_dict: String
+    duration: String
+    client_ts: String
+}
+
+
+
+@enduml
