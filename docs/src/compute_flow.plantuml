@@ -5,7 +5,7 @@ Server --> Client: Ack.
 end
 
 loop every minute
-Client2 -> Server: **\heartbeat** \n Register \n with the server
+Client2 -> Server: **\heartbeat** \n Register with the server.
 Server --> Client2: Ack.
 end
 
