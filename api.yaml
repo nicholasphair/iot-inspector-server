@@ -1,4 +1,3 @@
-
 openapi: "3.0.1"
 info:
   title: IOT-Inspector-Server
@@ -121,6 +120,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/partner'
+
+  /model:
+    get:
+      operationId: getModel
+      summary: >
+        Return the latest version of the model.
+      responses:
+        '200':
+          description: Pickle serialized pytorch model.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+    post:
+      operationId: submitModel
+      summary: >
+        Clients send updated model.
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: |-
+            200 response
+          content:
+            text/plain:
+              schema:
+                type: string
 
   /separate:
     get:

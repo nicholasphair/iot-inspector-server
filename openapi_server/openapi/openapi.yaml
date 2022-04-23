@@ -56,6 +56,38 @@ paths:
           description: Acknowledgement.
       summary: send a heartbeat to the server to let it know we are connected.
       x-openapi-router-controller: openapi_server.controllers.default_controller
+  /model:
+    get:
+      operationId: get_model
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Pickle serialized pytorch model.
+      summary: |
+        Return the latest version of the model.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+    post:
+      operationId: submit_model
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              format: binary
+              type: string
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 200 response
+      summary: |
+        Clients send updated model.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
   /partner:
     get:
       operationId: partner
@@ -74,9 +106,9 @@ paths:
       responses:
         "200":
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: '#/components/schemas/partner'
+                type: string
           description: Acknowledgement.
       summary: |
         Tell the server you have disconnected from your partner. A client should send this after a secure computation is complete.

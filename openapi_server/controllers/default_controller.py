@@ -37,6 +37,17 @@ def generate_user_key():    # noqa: E501
     return 'do some magic!'
 
 
+def get_model():    # noqa: e501
+    """return the latest version of the model. 
+
+     # noqa: e501
+
+
+    :rtype: file
+    """
+    return 'do some magic!'
+
+
 def heart_beat():    # noqa: E501
     """send a heartbeat to the server to let it know we are connected.
 
@@ -125,6 +136,19 @@ def submit_fingerprint(user_key, fingerprint=None):    # noqa: E501
     if connexion.request.is_json:
         fingerprint = Fingerprint.from_dict(connexion.request.get_json())    # noqa: E501
     print(fingerprint)
+    return 'do some magic!'
+
+
+def submit_model(body=None):    # noqa: E501
+    """Clients send updated model. 
+
+     # noqa: E501
+
+    :param body: 
+    :type body: str
+
+    :rtype: str
+    """
     return 'do some magic!'
 
 
