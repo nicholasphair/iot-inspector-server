@@ -1,5 +1,3 @@
-import time
-from threading import Timer, Lock
 from collections import defaultdict
 
 from pathlib import Path
