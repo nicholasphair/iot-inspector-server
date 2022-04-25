@@ -134,6 +134,9 @@ paths:
               schema:
                 type: string
                 format: binary
+        '404':
+          description: Empty model.
+
     post:
       operationId: submitModel
       summary: >

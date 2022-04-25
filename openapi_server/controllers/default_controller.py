@@ -1,7 +1,7 @@
 import connexion
 import six
 
-from flask import request, current_app, jsonify
+from flask import request, current_app, jsonify, send_file, abort
 from openapi_server.models.client import Client    # noqa: E501
 from openapi_server.models.fingerprint import Fingerprint    # noqa: E501
 from openapi_server.models.partner import Partner    # noqa: E501
@@ -45,7 +45,12 @@ def get_model():    # noqa: e501
 
     :rtype: file
     """
-    return 'do some magic!'
+    mmanager = current_app.config['model_manager']
+    if not mmanager.model_available():
+        abort(404)
+
+    path = mmanager.path
+    return send_file(path, attachment_filename='model.pt', mimetype='application/octet-stream')
 
 
 def heart_beat():    # noqa: E501
@@ -149,7 +154,9 @@ def submit_model(body=None):    # noqa: E501
 
     :rtype: str
     """
-    return 'do some magic!'
+    mmanager = current_app.config['model_manager']
+    mmanager.save_model(body)
+    return 'OK'
 
 
 def submit_utc_offset(user_key, offset_seconds):    # noqa: E501
