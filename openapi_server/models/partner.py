@@ -15,26 +15,31 @@ class Partner(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, success=None, address=None):  # noqa: E501
+    def __init__(self, success=None, address=None, user_key=None):  # noqa: E501
         """Partner - a model defined in OpenAPI
 
         :param success: The success of this Partner.  # noqa: E501
         :type success: bool
         :param address: The address of this Partner.  # noqa: E501
         :type address: str
+        :param user_key: The user_key of this Partner.  # noqa: E501
+        :type user_key: str
         """
         self.openapi_types = {
             'success': bool,
-            'address': str
+            'address': str,
+            'user_key': str
         }
 
         self.attribute_map = {
             'success': 'success',
-            'address': 'address'
+            'address': 'address',
+            'user_key': 'user_key'
         }
 
         self._success = success
         self._address = address
+        self._user_key = user_key
 
     @classmethod
     def from_dict(cls, dikt) -> 'Partner':
@@ -88,3 +93,24 @@ class Partner(Model):
         """
 
         self._address = address
+
+    @property
+    def user_key(self):
+        """Gets the user_key of this Partner.
+
+
+        :return: The user_key of this Partner.
+        :rtype: str
+        """
+        return self._user_key
+
+    @user_key.setter
+    def user_key(self, user_key):
+        """Sets the user_key of this Partner.
+
+
+        :param user_key: The user_key of this Partner.
+        :type user_key: str
+        """
+
+        self._user_key = user_key

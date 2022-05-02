@@ -1,4 +1,5 @@
 import connexion
+import secrets
 import six
 
 from flask import request, current_app, jsonify, send_file, abort
@@ -34,7 +35,7 @@ def generate_user_key():    # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    return f"s{secrets.token_hex(5)}"
 
 
 def get_model():    # noqa: e501
@@ -53,7 +54,7 @@ def get_model():    # noqa: e501
     return send_file(path, attachment_filename='model.pt', mimetype='application/octet-stream')
 
 
-def heart_beat():    # noqa: E501
+def heart_beat(user_key: str):    # noqa: E501
     """send a heartbeat to the server to let it know we are connected.
 
      # noqa: E501
@@ -62,8 +63,7 @@ def heart_beat():    # noqa: E501
     :rtype: str
     """
     ip = request.remote_addr
-    print(ip)
-    current_app.config['connection_manager'].refresh(ip)
+    current_app.config['connection_manager'].refresh((ip, user_key))
     return 'OK'
 
 
@@ -117,7 +117,6 @@ def submit_data(user_key, upload=None):    # noqa: E501
     """
     if connexion.request.is_json:
         upload = Upload.from_dict(connexion.request.get_json())    # noqa: E501
-    print(upload)
     # client_action = {start_fast_arp_discovery, quit} U {}
     # ui_last_active_ts = int
     # status = 'status'
@@ -140,7 +139,6 @@ def submit_fingerprint(user_key, fingerprint=None):    # noqa: E501
     """
     if connexion.request.is_json:
         fingerprint = Fingerprint.from_dict(connexion.request.get_json())    # noqa: E501
-    print(fingerprint)
     return 'do some magic!'
 
 

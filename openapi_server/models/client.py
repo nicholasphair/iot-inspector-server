@@ -15,11 +15,13 @@ class Client(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, address=None, haspartner=None, timeout=None):  # noqa: E501
+    def __init__(self, address=None, user_key=None, haspartner=None, timeout=None):  # noqa: E501
         """Client - a model defined in OpenAPI
 
         :param address: The address of this Client.  # noqa: E501
         :type address: str
+        :param user_key: The user_key of this Client.  # noqa: E501
+        :type user_key: str
         :param haspartner: The haspartner of this Client.  # noqa: E501
         :type haspartner: bool
         :param timeout: The timeout of this Client.  # noqa: E501
@@ -27,17 +29,20 @@ class Client(Model):
         """
         self.openapi_types = {
             'address': str,
+            'user_key': str,
             'haspartner': bool,
             'timeout': int
         }
 
         self.attribute_map = {
             'address': 'address',
+            'user_key': 'user_key',
             'haspartner': 'haspartner',
             'timeout': 'timeout'
         }
 
         self._address = address
+        self._user_key = user_key
         self._haspartner = haspartner
         self._timeout = timeout
 
@@ -72,6 +77,27 @@ class Client(Model):
         """
 
         self._address = address
+
+    @property
+    def user_key(self):
+        """Gets the user_key of this Client.
+
+
+        :return: The user_key of this Client.
+        :rtype: str
+        """
+        return self._user_key
+
+    @user_key.setter
+    def user_key(self, user_key):
+        """Sets the user_key of this Client.
+
+
+        :param user_key: The user_key of this Client.
+        :type user_key: str
+        """
+
+        self._user_key = user_key
 
     @property
     def haspartner(self):

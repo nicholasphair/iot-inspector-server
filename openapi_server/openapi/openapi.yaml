@@ -44,9 +44,18 @@ paths:
           description: The generated key.
       summary: Generate a new user key.
       x-openapi-router-controller: openapi_server.controllers.default_controller
-  /heartbeat:
-    get:
+  /heartbeat/{user_key}:
+    post:
       operationId: heart_beat
+      parameters:
+      - description: the current user's key
+        explode: false
+        in: path
+        name: user_key
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -293,6 +302,7 @@ components:
     partner:
       example:
         address: address
+        user_key: s34929a6a8d
         success: true
       properties:
         success:
@@ -300,6 +310,9 @@ components:
           type: boolean
         address:
           title: address
+          type: string
+        user_key:
+          title: user_key
           type: string
       title: partner
       type: object
@@ -311,6 +324,9 @@ components:
       properties:
         address:
           title: address
+          type: string
+        user_key:
+          title: user_key
           type: string
         haspartner:
           title: haspartner
