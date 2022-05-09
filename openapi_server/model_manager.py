@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 class ModelManager():
-    DEFAULT_PATH = Path.home() / 'inspector_model.pt'
+    DEFAULT_PATH = Path.cwd() / 'inspector_model.pt'
 
     def save_model(self, model):
         with open(self._path, 'wb') as f:
